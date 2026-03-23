@@ -1,0 +1,101 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #000;
+    color: #fff; /* Standard color for the 'Press Start' */
+    font-family: 'Press Start 2P', cursive;
+    overflow: hidden;
+}
+/* 1. Make the Game Screen a flex container */
+#gameScreen {
+    background: url('images/8bit-radio-scene.jpg') no-repeat center 20%;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: opacity 1.5s ease-in;
+}
+
+/* 2. Create a 'Safe Area' that matches the aspect ratio of your image */
+.radio-container {
+    position: relative;
+    width: 100%;
+    max-width: 800px; /* Adjust this based on your image width */
+    aspect-ratio: 9 / 16; /* Matches a vertical phone-style image */
+    pointer-events: none; /* Let clicks pass through to the background */
+}
+
+/* 3. Position the Overlay INSIDE the container */
+.radio-overlay {
+    position: absolute;
+    /* Now, 66% top is relative to the IMAGE height, not the SCREEN height */
+    top: 85%;  
+    left: 47.5%;   
+    transform: translate(-50%, -50%);
+    width: 220px; 
+    text-align: center;
+
+    background: rgba(0, 0, 50, 0.4);
+    padding: 5px;
+}
+
+.screen {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#startScreen {
+    background: #000;
+    cursor: pointer;
+    font-size: 1.5rem;
+    z-index: 10;
+}
+
+
+.hidden {
+    display: none !important;
+}
+
+/* Animations */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.blink {
+    animation: blink 1.2s infinite;
+}
+
+/* Covers the '33.3' numbers */
+.frequency-display {
+    font-size: 2.2rem; /* Big digital number look */
+    color: #00ffcc;     /* Vaporwave Cyan (or use the blue from your previous setup: #0088ff) */
+    letter-spacing: -2px;
+    margin-bottom: 5px;
+    transition: color 0.3s ease;
+}
+
+/* Covers the 'OUR SONG' text */
+.broadcast-message {
+    font-size: 0.6rem; /* Small scrolling text look */
+    color: #fff;
+    opacity: 0.8;
+}
+
+/* Added dynamically by script when locked-on */
+.frequency-display.locked {
+    color: #ff00ff; /* Flashes bright magenta/pink when it hits 49.0 */
+    text-shadow: 0 0 20px #ff00ff;
+}
+
+.broadcast-message.locked {
+    color: #ff00ff;
+    opacity: 1;
+}
