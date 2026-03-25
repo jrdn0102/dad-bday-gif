@@ -30,8 +30,8 @@ body {
 .radio-overlay {
     position: absolute;
     /* Now, 66% top is relative to the IMAGE height, not the SCREEN height */
-    top: 85%;  
-    left: 47.5%;   
+    top: 68vh;  
+    left: 50%;   
     transform: translate(-50%, -50%);
     width: 220px; 
     text-align: center;
@@ -98,4 +98,29 @@ body {
 .broadcast-message.locked {
     color: #ff00ff;
     opacity: 1;
+}
+
+/* --- MOBILE SPECIFIC FIXES --- */
+@media (max-width: 600px) {
+    #gameScreen {
+        background-size: contain; /* Ensures the radio isn't cropped on tall screens */
+        background-position: center 20%; /* Nudges the image up to make room for text */
+    }
+
+    .radio-overlay {
+        /* Adjust this 'top' percentage until the numbers 
+           sit perfectly inside your radio's blue slot on your phone */
+        top: 60%; 
+        left: 50%;
+        width: 60%;
+    }
+
+    #frequencyText {
+        font-size: 12vw; /* Makes the numbers bigger on small screens */
+    }
+
+    #broadcastText {
+        font-size: 4vw;
+        margin-top: 10px;
+    }
 }

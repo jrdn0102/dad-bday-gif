@@ -12,16 +12,28 @@ const clickSound = new Audio('audio/click-audio.mp3');
 bgMusic.loop = true;
 bgMusic.volume = 0.4; 
 
+
 startScreen.addEventListener("click", () => {
-    // 1. Play click ONLY HERE
+    // 1. CLICK SOUND (Plays immediately)
     clickSound.currentTime = 0;
     clickSound.play();
 
+    // 2. UNLOCK BACKGROUND AUDIO
+    // We 'start' it here so the phone allows it, then pause so it 
+    // doesn't actually make noise until the tuning starts.
+    bgMusic.play().then(() => {
+        bgMusic.pause();
+        bgMusic.currentTime = 0;
+    }).catch(error => {
+        console.log("Mobile audio auto-play blocked:", error);
+    });
+
+    // 3. TRANSITION
     startScreen.classList.add("hidden");
     gameScreen.classList.remove("hidden");
     gameScreen.style.opacity = "1";
 
-    // Start tuning after 1 second
+    // 4. DELAYED TUNING
     setTimeout(startRadioTuning, 1000); 
 });
 
@@ -29,7 +41,7 @@ function startRadioTuning() {
     bgMusic.play();
 
     const targetFreq = 49.0;
-    const totalJumps = 5;
+    const totalJumps = 6;
     let currentJump = 0;
 
     // Adjusted to 1.2 seconds per jump to hit the ~7s mark for the final lock
@@ -60,6 +72,6 @@ function showFinalLockOn() {
     setTimeout(() => { broadcastText.textContent = "STRONG."; }, 800);
     setTimeout(() => { broadcastText.textContent = "STEADY."; }, 1600);
     setTimeout(() => { broadcastText.textContent = "ALWAYS THERE."; }, 2400);
-    setTimeout(() => { broadcastText.textContent = "HAPPY BIRTHDAY."; }, 3600);
+    setTimeout(() => { broadcastText.textContent = "HAPPY BIRTHDAY!"; }, 3600);
 
 }
